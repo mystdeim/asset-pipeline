@@ -1,0 +1,15 @@
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+group = 'mystdeim.asset-pipeline'
+version = '0.1'
+
+dependencies {
+    compile gradleApi()
+    compile "io.vertx:vertx-core:$vertxVersion"
+    compile "com.yahoo.platform.yui:yuicompressor:$yuiVersion"
+
+    testCompile "junit:junit:$junitVerstion"
+}
