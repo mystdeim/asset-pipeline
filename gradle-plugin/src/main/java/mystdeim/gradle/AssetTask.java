@@ -21,14 +21,6 @@ public class AssetTask extends DefaultTask {
 
     @TaskAction
     public void greet() throws Exception {
-        AssetPipelinePluginExtension extension = getProject().getExtensions().findByType(AssetPipelinePluginExtension.class);
-        if (extension == null) {
-            extension = new AssetPipelinePluginExtension();
-        }
-
-        String message = extension.getMessage();
-        System.out.println(message);
-
         engine.run();
     }
 
