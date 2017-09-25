@@ -8,6 +8,8 @@ import org.gradle.api.tasks.TaskAction;
  */
 public class AssetTask extends DefaultTask {
 
+    static final String DESCRIPTION = "Compile static assets";
+
     Engine engine;
 
     public AssetTask() {
@@ -28,5 +30,10 @@ public class AssetTask extends DefaultTask {
         System.out.println(message);
 
         engine.run();
+    }
+
+    @Override
+    public String getDescription() {
+        return DESCRIPTION;
     }
 }

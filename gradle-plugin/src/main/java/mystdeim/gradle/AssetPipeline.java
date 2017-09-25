@@ -11,7 +11,7 @@ public class AssetPipeline implements Plugin<Project> {
     @Override
     public void apply(Project project) {
 //        project.getExtensions().create("assetPipelineSetting", AssetPipelinePluginExtension.class);
-        project.getTasks().create("assets", AssetTask.class);
+        project.getTasks().create("compileAssets", AssetTask.class);
 
         AssetPipelinePluginExtension ext = new AssetPipelinePluginExtension();
         project.getDependencies().add("compile",
