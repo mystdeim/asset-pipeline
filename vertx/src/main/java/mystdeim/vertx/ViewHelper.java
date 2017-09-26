@@ -1,4 +1,4 @@
-package mystdeim.gradle;
+package mystdeim.vertx;
 
 import io.vertx.core.json.JsonObject;
 
