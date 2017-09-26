@@ -1,4 +1,4 @@
-package mystdeim.vertx;
+package mystdeim.asset_pipeline.vertx;
 
 import io.vertx.core.json.JsonObject;
 

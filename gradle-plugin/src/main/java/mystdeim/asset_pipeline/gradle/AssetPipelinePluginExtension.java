@@ -1,4 +1,4 @@
-package mystdeim.gradle;
+package mystdeim.asset_pipeline.gradle;
 
 /**
  * @author Roman Novikov

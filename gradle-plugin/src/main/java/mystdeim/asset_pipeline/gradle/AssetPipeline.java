@@ -1,4 +1,4 @@
-package mystdeim.gradle;
+package mystdeim.asset_pipeline.gradle;
 
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
