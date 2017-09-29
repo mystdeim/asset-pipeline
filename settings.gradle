@@ -17,4 +17,5 @@ include 'services:webservice'
 
 rootProject.name = 'asset-pipeline'
 include 'gradle-plugin', 'vertx'
+include 'commons'
 

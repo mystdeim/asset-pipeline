@@ -1,6 +1,7 @@
 package mystdeim.asset_pipeline.vertx;
 
 import io.vertx.core.json.JsonObject;
+import mystdeim.asset_pipeline.commons.DIRS;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,9 +10,6 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 public class ViewHelper {
-
-    static final String CSS_HOME = "webroot/css";
-    static final String PUBLIC = "public/";
 
     JsonObject conf;
 
@@ -23,8 +21,7 @@ public class ViewHelper {
         if (conf.getString("environment").equals("production")) {
             return String.format("<link rel='stylesheet' href='%s'", getProdAsset("app.css"));
         } else {
-            String path = "app.css";
-            return String.format("<link rel='stylesheet' href='/css/%s?%s'>%n", path, getTimestamp(CSS_HOME + "/" + path));
+            return String.format("%s%n%s%n", getCssDev(), getJsDev());
         }
     }
 
@@ -32,7 +29,7 @@ public class ViewHelper {
         if (conf.getString("environment").equals("production")) {
             return getProdAsset(name);
         } else {
-            String file = PUBLIC + name;
+            String file = DIRS.PUBLIC.getValue() + name;
             return String.format("%s?%s", file, getTimestamp("webroot/" + file));
         }
     }
@@ -57,6 +54,16 @@ public class ViewHelper {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    String getCssDev() {
+        String path = "app.css";
+        return String.format("<link rel='stylesheet' href='/css/%s?%s'>", path, getTimestamp(DIRS.CSS_HOME.getValue() + "/" + path));
+    }
+
+    String getJsDev() {
+        String path = "js.css";
+        return String.format(" <script src='%s'></script>", path, getTimestamp(DIRS.JS_HOME.getValue() + "/" + path));
     }
 
 }
