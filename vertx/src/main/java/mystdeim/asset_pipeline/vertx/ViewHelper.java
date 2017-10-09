@@ -13,6 +13,10 @@ public class ViewHelper {
 
     JsonObject conf;
 
+    // TODO: temporary!
+    public ViewHelper() {
+    }
+
     public ViewHelper(JsonObject conf) {
         this.conf = conf;
     }

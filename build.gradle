@@ -30,8 +30,9 @@ dependencies {
 }
 */
 
-group = 'mystdeim'
+group = 'con.github.mystdeim'
 version = '0.1'
+
 
 ext {
     vertxVersion = "3.4.2"

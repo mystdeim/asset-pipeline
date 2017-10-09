@@ -1,7 +1,9 @@
+
+
 apply plugin: 'java'
 apply plugin: 'maven'
 
-group = 'mystdeim.asset-pipeline'
+group = 'com.github.mystdeim.asset-pipeline'
 version = '0.1'
 
 sourceCompatibility = 1.8

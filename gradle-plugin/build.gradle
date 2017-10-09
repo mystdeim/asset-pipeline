@@ -3,7 +3,7 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'maven'
 
-group = 'mystdeim.asset-pipeline'
+group = 'com.github.mystdeim.asset-pipeline'
 version = '0.1'
 
 dependencies {
