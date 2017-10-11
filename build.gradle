@@ -34,12 +34,6 @@ group = 'con.github.mystdeim'
 version = appVersion
 
 
-ext {
-    vertxVersion = "3.4.2"
-    junitVerstion = "4.+"
-    yuiVersion = "2.4.+"
-}
-
 allprojects {
     repositories {
         mavenLocal()

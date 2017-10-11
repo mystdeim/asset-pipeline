@@ -1,6 +1,9 @@
 package mystdeim.asset_pipeline.gradle;
 
 import com.yahoo.platform.yui.compressor.CssCompressor;
+import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
+import org.mozilla.javascript.ErrorReporter;
+import org.mozilla.javascript.EvaluatorException;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -46,6 +49,7 @@ public class Engine {
 
     public static final String APP = "app";
     public static final String CSS = "css";
+    public static final String JS = "js";
     public static final String IMAGES = "img";
     public static final String MANIFEST = "assets.properties";
 
@@ -64,9 +68,8 @@ public class Engine {
     void run() throws Exception {
         Map<String, String> manifestMap = new HashMap<>();
 
-        // css
-        String cssFile = css();
-        manifestMap.put("app.css", cssFile);
+        manifestMap.put("app.css", css());
+        manifestMap.put("js.css", js());
 
         // images
 
@@ -94,6 +97,23 @@ public class Engine {
             Reader reader = new StringReader(content);
             CssCompressor compressor = new CssCompressor(reader);
             compressor.compress(css_writer, MAX_LINE_LENGTH);
+        }
+
+        return fileName;
+    }
+
+    String js() throws Exception {
+        String content = new String(Files.readAllBytes(Paths.get(String.format("%s/%s/%s.js", inputDir, JS, APP))));
+        String fileName = String.format("%s-%s.js", APP, hash(content));
+
+        String js = String.format("%s/%s", outputDir, assetsName);
+        new File(js).mkdirs();
+        String js_path = String.format("%s/%s", js, fileName);
+
+        try (Writer js_writer = new FileWriter(js_path)) {
+            Reader reader = new StringReader(content);
+            JavaScriptCompressor compressor = new JavaScriptCompressor(reader, new ErrorReporterImpl());
+            compressor.compress(js_writer, MAX_LINE_LENGTH, false, true, true, true);
         }
 
         return fileName;
@@ -144,5 +164,22 @@ public class Engine {
         byte[] thedigest = md.digest(bytesOfMessage);
         String hash = new BigInteger(1, thedigest).toString(16);
         return hash;
+    }
+
+    class ErrorReporterImpl implements ErrorReporter {
+        @Override
+        public void warning(String s, String s1, int i, String s2, int i1) {
+
+        }
+
+        @Override
+        public void error(String s, String s1, int i, String s2, int i1) {
+
+        }
+
+        @Override
+        public EvaluatorException runtimeError(String s, String s1, int i, String s2, int i1) {
+            return null;
+        }
     }
 }

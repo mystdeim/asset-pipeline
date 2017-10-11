@@ -48,11 +48,36 @@ public class EngineTest {
         assertEquals(cssProductionFile, cssFileName);
         assertTrue(cssProductionFile.startsWith(Engine.APP));
         assertTrue(cssProductionFile.endsWith(".css"));
+
+        // app-8b20aeff02af61f1be184f033efd622d.css
         assertEquals(40, cssProductionFile.length());
 
         // check content
         List<String> lines = Files.readAllLines(buildFolder.getRoot().toPath()
                 .resolve(ASSETS_DIR_NAME).resolve(cssProductionFile));
+        assertEquals(1, lines.size());
+    }
+
+    @Test
+    public void testJs() throws Exception {
+        String jsProductionFile = engine.js();
+
+        assertEquals(1, buildFolder.getRoot().listFiles().length);
+
+        // check file inside assets dir
+        Path assetsPath = Paths.get(buildFolder.getRoot().toString(), ASSETS_DIR_NAME);
+        assertEquals(1, Files.list(assetsPath).count());
+        String jsFileName = Files.list(assetsPath).findAny().get().getFileName().toString();
+        assertEquals(jsProductionFile, jsFileName);
+        assertTrue(jsProductionFile.startsWith(Engine.APP));
+        assertTrue(jsProductionFile.endsWith(".js"));
+
+        // app-8b20aeff02af61f1be184f033efd622d.js
+        assertEquals(39, jsProductionFile.length());
+
+        // check content
+        List<String> lines = Files.readAllLines(buildFolder.getRoot().toPath()
+                .resolve(ASSETS_DIR_NAME).resolve(jsProductionFile));
         assertEquals(1, lines.size());
     }
 
