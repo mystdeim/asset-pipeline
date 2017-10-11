@@ -4,7 +4,7 @@ apply plugin: 'groovy'
 apply plugin: 'maven'
 
 group = 'com.github.mystdeim.asset-pipeline'
-version = '0.1'
+version = appVersion
 
 dependencies {
     compile gradleApi()

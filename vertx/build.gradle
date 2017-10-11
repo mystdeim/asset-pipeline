@@ -3,7 +3,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 
 group = 'com.github.mystdeim.asset-pipeline'
-version = '0.2'
+version = appVersion
 
 sourceCompatibility = 1.8
 

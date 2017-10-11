@@ -31,7 +31,7 @@ dependencies {
 */
 
 group = 'con.github.mystdeim'
-version = '0.1'
+version = appVersion
 
 
 ext {
