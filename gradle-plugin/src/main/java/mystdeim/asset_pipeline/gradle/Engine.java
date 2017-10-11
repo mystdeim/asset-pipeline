@@ -113,7 +113,7 @@ public class Engine {
         try (Writer js_writer = new FileWriter(js_path)) {
             Reader reader = new StringReader(content);
             JavaScriptCompressor compressor = new JavaScriptCompressor(reader, new ErrorReporterImpl());
-            compressor.compress(js_writer, MAX_LINE_LENGTH, false, true, true, true);
+            compressor.compress(js_writer, MAX_LINE_LENGTH, true, true, true, false);
         }
 
         return fileName;
