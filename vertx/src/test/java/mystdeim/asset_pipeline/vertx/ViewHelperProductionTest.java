@@ -21,7 +21,7 @@ public class ViewHelperProductionTest {
 
     @Before
     public void setUp() throws IOException {
-        viewHelper = new ViewHelperProduction("webroot_prod", "public");
+        viewHelper = new ViewHelperProduction("webroot_prod", "webroot");
         props = new Properties();
         try (InputStream in = ViewHelperProduction.class.getResourceAsStream("/assets.properties")) {
             props.load(in);
@@ -31,21 +31,21 @@ public class ViewHelperProductionTest {
     @Test
     public void assetTest() throws Exception {
         String asset = viewHelper.asset("logo.png");
-        assertEquals("/public/" + props.getProperty("logo.png"), asset);
+        assertEquals("/webroot/" + props.getProperty("logo.png"), asset);
     }
 
     @Test
     public void cssTest() throws Exception {
         String asset = viewHelper.css();
         String name = props.getProperty("app.css");
-        assertEquals(String.format("<link rel='stylesheet' href='/public/%s'/>", name), asset);
+        assertEquals(String.format("<link rel='stylesheet' href='/webroot/%s'/>", name), asset);
     }
 
     @Test
     public void jsTest() throws Exception {
         String asset = viewHelper.js();
         String name = props.getProperty("app.js");
-        assertEquals(String.format("<script src='/public/%s'></script>", name), asset);
+        assertEquals(String.format("<script src='/webroot/%s'></script>", name), asset);
     }
 
     @Test(expected = FileNotFoundException.class)

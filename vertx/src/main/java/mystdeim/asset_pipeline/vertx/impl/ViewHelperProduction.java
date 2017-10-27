@@ -13,7 +13,7 @@ public class ViewHelperProduction implements ViewHelper {
     private final String publicPath;
 
     public ViewHelperProduction() {
-        this(Dir.WEB_ROOT, Dir.PUBLIC);
+        this(Dir.WEB_ROOT, Dir.WEB_ROOT);
     }
 
     public ViewHelperProduction(String webroot, String publicPath) {
