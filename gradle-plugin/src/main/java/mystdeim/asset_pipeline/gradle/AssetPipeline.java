@@ -17,8 +17,8 @@ public class AssetPipeline implements Plugin<Project> {
 //        AssetPipelinePluginExtension ext = new AssetPipelinePluginExtension();
 
         project.getTasks().create(COMPILE_ASSETS, AssetTask.class);
-        project.getDependencies().add("compile",
-                String.format("com.github.mystdeim.asset-pipeline:vertx:+"));
+//        project.getDependencies().add("compile",
+//                String.format("com.github.mystdeim.asset-pipeline:vertx:+"));
 
         project.getTasks().getByName(BUILD).dependsOn(COMPILE_ASSETS);
 
