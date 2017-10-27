@@ -34,7 +34,8 @@ public class ViewHelperProduction implements ViewHelper {
     public String asset(String name) throws FileNotFoundException {
         Properties properties = new Properties();
         try {
-            try (InputStream in = ViewHelperProduction.class.getResourceAsStream(String.format("/%s/%s", webroot, Dir.ASSETS_PROP))) {
+            String path = String.format("/%s", Dir.ASSETS_PROP);
+            try (InputStream in = ViewHelperProduction.class.getResourceAsStream(path)) {
                 properties.load(in);
             }
         } catch (Exception e) {

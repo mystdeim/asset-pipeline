@@ -4,8 +4,10 @@ import mystdeim.asset_pipeline.commons.Const.Dir;
 import mystdeim.asset_pipeline.vertx.ViewHelper;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ViewHelperDevelopment implements ViewHelper {
@@ -47,20 +49,24 @@ public class ViewHelperDevelopment implements ViewHelper {
     // -----------------------------------------------------------------------------------------------------------------
 
     String asset(String name, String webRoot, String subDir) throws FileNotFoundException {
-        String file = String.format("/%s/%s/%s", webRoot, subDir, name);
+        String file = String.format("%s/%s/%s", webRoot, subDir, name);
         String viewedFile = String.format("/%s/%s", subDir, name);
         return String.format("%s?%s", viewedFile, getTimestamp(file));
     }
 
     String getTimestamp(String path_txt) throws FileNotFoundException {
-        URL url = this.getClass().getResource(path_txt);
-        if (null == url) {
+        Path path = getPath(path_txt);
+        if (!Files.isRegularFile(path)) {
             throw new FileNotFoundException(path_txt);
         }
         try {
-            return String.valueOf(Files.getLastModifiedTime(Paths.get(url.toURI())).toMillis());
-        } catch (Exception e) {
+            return String.valueOf(Files.getLastModifiedTime(path).toMillis());
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    protected Path getPath(String path_txt) {
+        return Paths.get(path_txt);
     }
 }

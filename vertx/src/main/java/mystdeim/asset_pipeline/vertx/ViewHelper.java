@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 public interface ViewHelper {
 
     static ViewHelper get(JsonObject conf) {
-        if (conf.getString(Const.Env.KEY).equals(Const.Env.PROD)) {
+        if (null != conf.getString(Const.Env.KEY) && conf.getString(Const.Env.KEY).equals(Const.Env.PROD)) {
             return new ViewHelperProduction();
         } else {
             return new ViewHelperDevelopment();

@@ -23,7 +23,7 @@ public class ViewHelperProductionTest {
     public void setUp() throws IOException {
         viewHelper = new ViewHelperProduction("webroot_prod", "public");
         props = new Properties();
-        try (InputStream in = ViewHelperProduction.class.getResourceAsStream("/webroot_prod/assets.properties")) {
+        try (InputStream in = ViewHelperProduction.class.getResourceAsStream("/assets.properties")) {
             props.load(in);
         }
     }

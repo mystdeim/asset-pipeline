@@ -6,7 +6,11 @@ import mystdeim.asset_pipeline.vertx.impl.ViewHelperDevelopment;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 import static org.junit.Assert.assertEquals;
@@ -21,7 +25,14 @@ public class ViewHelperDevelopmentTest {
 
     @Before
     public void setUp() {
-        viewHelper = new ViewHelperDevelopment();
+        viewHelper = new ViewHelperDevelopment() {
+            @Override
+            protected Path getPath(String path_txt) {
+                ClassLoader classLoader = getClass().getClassLoader();
+                File file = new File(classLoader.getResource(path_txt).getFile());
+                return Paths.get(file.getAbsolutePath());
+            }
+        };
     }
 
     @Test
