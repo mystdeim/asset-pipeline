@@ -5,7 +5,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -82,9 +85,9 @@ public class EngineTest {
     }
 
     @Test
-    public void testImages() throws Exception {
+    public void testPublic() throws Exception {
         Map<String, String> map = new HashMap<>();
-        engine.images(map);
+        engine.public_assets(map);
 
         // check manifest
         assertEquals(3, map.size());
@@ -121,7 +124,10 @@ public class EngineTest {
     public void testRun() throws Exception {
         engine.run();
 
-        assertEquals(2, buildFolder.getRoot().listFiles().length);
+        long fileInRoor = buildFolder.getRoot().listFiles().length;
+        long allFiles = Files.walk(buildFolder.getRoot().toPath()).parallel().filter(p -> !p.toFile().isDirectory()).count();
+        assertEquals(2, fileInRoor);
+        assertEquals(6, allFiles);
 
         // check manifest
         Properties manifest = new Properties();
@@ -145,6 +151,22 @@ public class EngineTest {
         assertEquals(2, content.length);
         assertEquals("app.css:app-#hash#.css", content[0]);
         assertEquals("app.js:app-#hash#.js", content[1]);
+    }
+
+    @Test
+    public void compareProps() throws Exception {
+        Properties example = new Properties();
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        try (InputStream resourceStream = loader.getResourceAsStream("mystdeim/assets.properties")) {
+            example.load(resourceStream);
+        }
+
+        engine.run();
+        Properties manifest = new Properties();
+        Path manifestPath = buildFolder.getRoot().toPath().resolve(Engine.MANIFEST);
+        manifest.load(new FileInputStream(manifestPath.toFile()));
+
+        assertEquals(example, manifest);
     }
 
 }

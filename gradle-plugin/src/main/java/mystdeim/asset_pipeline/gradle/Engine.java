@@ -50,7 +50,7 @@ public class Engine {
     public static final String APP = "app";
     public static final String CSS = "css";
     public static final String JS = "js";
-    public static final String IMAGES = "img";
+    public static final String PUBLIC = "public";
     public static final String MANIFEST = "assets.properties";
 
     static final int MAX_LINE_LENGTH = 1_000_000;
@@ -66,22 +66,12 @@ public class Engine {
     }
 
     void run() throws Exception {
-        Map<String, String> manifestMap = new HashMap<>();
+        Map<String, String> manifestMap = manifest();
 
-        manifestMap.put("app.css", css());
-        manifestMap.put("js.css", js());
-
-        // images
-
-//
-//        // assets files
-//        assets("webroot/public", assetsDir + "/public", manifestMap);
-//
         // manifest
         String manifestPath = outputDir + "/" + MANIFEST;
         String manifestContent = manifest(manifestMap);
         Files.write(Paths.get(manifestPath), manifestContent.getBytes());
-
     }
 
 
@@ -119,15 +109,15 @@ public class Engine {
         return fileName;
     }
 
-    void images(Map<String, String> manifest) throws IOException {
-        Files.walk(Paths.get(inputDir, IMAGES)).filter(Files::isRegularFile).forEach(path -> {
+    void public_assets(Map<String, String> manifest) throws IOException {
+        Files.walk(Paths.get(inputDir, PUBLIC)).filter(Files::isRegularFile).forEach(path -> {
             try {
                 byte[] bs = Files.readAllBytes(path);
                 Path fileOriginal = path.getFileName();
                 String fileName[] = fileOriginal.toString().split("\\.(?=[^\\.]+$)");
                 String prodFile = String.format("%s-%s.%s", fileName[0], hash(bs), fileName[1]);
 
-                Path parentPath = Paths.get(inputDir, IMAGES).relativize(path).getParent();
+                Path parentPath = Paths.get(inputDir, PUBLIC).relativize(path).getParent();
                 if (null == parentPath) {
                     manifest.put(fileOriginal.toString(), prodFile);
                     Paths.get(outputDir, assetsName).toFile().mkdirs();
@@ -143,6 +133,16 @@ public class Engine {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    Map<String, String> manifest() throws Exception {
+        Map<String, String> manifestMap = new HashMap<>();
+
+        manifestMap.put("app.css", css());
+        manifestMap.put("app.js", js());
+        public_assets(manifestMap);
+
+        return manifestMap;
     }
 
     String manifest(Map<String, String> map) {

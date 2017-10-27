@@ -3,17 +3,22 @@ package mystdeim.asset_pipeline.commons;
 /**
  * @author Roman Novikov
  */
-public final class Const implements CommonConst {
+public final class Const  {
 
     interface EnvConst {
+        String KEY = "env";
         String DEV = "dev";
         String PROD = "prod";
     }
 
     interface DirConst {
-        String PUBLIC = "public/";
-        String CSS_HOME = "webroot/css";
-        String JS_HOME = "webroot/js";
+        String WEB_ROOT = "webroot";
+        String PUBLIC = "public";
+        String CSS_HOME = "css";
+        String JS_HOME = "js";
+        String APP_CSS = "app.css";
+        String APP_JS = "app.js";
+        String ASSETS_PROP = "assets.properties";
     }
 
     public static final class Env implements EnvConst {
