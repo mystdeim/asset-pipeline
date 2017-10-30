@@ -13,6 +13,7 @@ public final class Const  {
 
     interface DirConst {
         String WEB_ROOT = "webroot";
+        String WEB_STATIC = "static";
         String PUBLIC = "public";
         String CSS_HOME = "css";
         String JS_HOME = "js";

@@ -50,7 +50,7 @@ public class ViewHelperDevelopment implements ViewHelper {
 
     String asset(String name, String webRoot, String subDir) throws FileNotFoundException {
         String file = String.format("%s/%s/%s", webRoot, subDir, name);
-        String viewedFile = String.format("/%s/%s", subDir, name);
+        String viewedFile = String.format("/%s/%s/%s", Dir.WEB_STATIC, subDir, name);
         return String.format("%s?%s", viewedFile, getTimestamp(file));
     }
 

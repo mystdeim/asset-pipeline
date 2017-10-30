@@ -38,24 +38,24 @@ public class ViewHelperDevelopmentTest {
     @Test
     public void assetTest() throws Exception {
         String asset = viewHelper.asset("logo.png");
-        assertTrue("should starn with /public/logo.png?", asset.startsWith("/public/logo.png?"));
-        assertTrue(asset.length() > "/public/logo.png?".length() + 5);
+        assertTrue("should starn with /public/logo.png?", asset.startsWith("/static/public/logo.png?"));
+        assertTrue(asset.length() > "/static/public/logo.png?".length() + 5);
     }
 
     @Test
     public void cssTest() throws Exception {
         String asset = viewHelper.css();
-        assertTrue(asset.startsWith("<link rel='stylesheet' href='/css/app.css?"));
+        assertTrue(asset.startsWith("<link rel='stylesheet' href='/static/css/app.css?"));
         assertTrue(asset.trim().endsWith("'/>"));
-        assertTrue(asset.length() > "<link rel='stylesheet' href='/css/app.css?".length() + 5);
+        assertTrue(asset.length() > "<link rel='stylesheet' href='/static/css/app.css?".length() + 5);
     }
 
     @Test
     public void jsTest() throws Exception {
         String asset = viewHelper.js();
-        assertTrue(asset.startsWith("<script src='/js/app.js?"));
+        assertTrue(asset.startsWith("<script src='/static/js/app.js?"));
         assertTrue(asset.trim().endsWith("'></script>"));
-        assertTrue(asset.length() > "<script src='/js/app.js?".length() + 5);
+        assertTrue(asset.length() > "<script src='/static/js/app.js?".length() + 5);
     }
 
     @Test(expected = FileNotFoundException.class)

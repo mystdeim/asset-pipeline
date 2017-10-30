@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
  *
  * Build directory:
  * build/resources/main/
- *   manifest.properties
+ *   assets.properties
  *   webroot/
  *     app-#md5hash#.css
  *     app-#md5hash#.js

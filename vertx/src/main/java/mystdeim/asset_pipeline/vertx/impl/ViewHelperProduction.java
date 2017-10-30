@@ -10,15 +10,15 @@ import java.util.Properties;
 public class ViewHelperProduction implements ViewHelper {
 
     private final String webroot;
-    private final String publicPath;
+    private final String staticPath;
 
     public ViewHelperProduction() {
-        this(Dir.WEB_ROOT, Dir.WEB_ROOT);
+        this(Dir.WEB_ROOT, Dir.WEB_STATIC);
     }
 
-    public ViewHelperProduction(String webroot, String publicPath) {
+    public ViewHelperProduction(String webroot, String staticPath) {
         this.webroot = webroot;
-        this.publicPath = publicPath;
+        this.staticPath = staticPath;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ViewHelperProduction implements ViewHelper {
         if (null == digest) {
             throw new FileNotFoundException(name);
         } else {
-            return String.format("/%s/%s", publicPath, properties.getProperty(name));
+            return String.format("/%s/%s", staticPath, properties.getProperty(name));
         }
     }
 }
