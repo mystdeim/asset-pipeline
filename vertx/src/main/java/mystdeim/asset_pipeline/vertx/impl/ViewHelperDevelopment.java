@@ -36,8 +36,12 @@ public class ViewHelperDevelopment implements ViewHelper {
 
     @Override
     public String js() throws FileNotFoundException {
+        String preInitJs = "<script>window.uiEvents = [];</script>\n" +
+                "<script src='//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.min.js'></script>";
+        String liveReload = "<script src='http://localhost:35729/livereload.js?snipver=1'></script>";
         String viewedFile =  asset(Dir.APP_JS, webRootPath, jsPath);
-        return String.format("<script src='%s'></script>", viewedFile);
+        String content = String.format("<script src='%s'></script>", viewedFile);
+        return String.format("%s%n%s%n%s%n", preInitJs, liveReload, content);
     }
 
     @Override

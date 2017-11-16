@@ -52,10 +52,14 @@ public class ViewHelperDevelopmentTest {
 
     @Test
     public void jsTest() throws Exception {
-        String asset = viewHelper.js();
-        assertTrue(asset.startsWith("<script src='/static/js/app.js?"));
-        assertTrue(asset.trim().endsWith("'></script>"));
-        assertTrue(asset.length() > "<script src='/static/js/app.js?".length() + 5);
+        String[] assets = viewHelper.js().split("\n");
+
+        assertEquals("<script>window.uiEvents = [];</script>", assets[0]);
+        assertEquals("<script src='//cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.min.js'></script>", assets[1]);
+        assertEquals("<script src='http://localhost:35729/livereload.js?snipver=1'></script>", assets[2]);
+        assertTrue(assets[3].startsWith("<script src='/static/js/app.js?"));
+        assertTrue(assets[3].trim().endsWith("'></script>"));
+        assertTrue(assets[3].length() > "<script src='/static/js/app.js?".length() + 5);
     }
 
     @Test(expected = FileNotFoundException.class)

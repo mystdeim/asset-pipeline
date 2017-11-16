@@ -22,6 +22,8 @@ public class AssetPipeline implements Plugin<Project> {
 
         project.getTasks().getByName(BUILD).dependsOn(COMPILE_ASSETS);
 
+//        project.getPlugins().apply("org.kordamp.gradle:livereload-gradle-plugin:0.2.1");
+        project.getPluginManager().apply("org.kordamp.gradle.livereload");
     }
 
 }

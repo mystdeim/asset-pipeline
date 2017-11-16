@@ -11,5 +11,7 @@ dependencies {
     compile "io.vertx:vertx-core:$vertxVersion"
     compile "com.yahoo.platform.yui:yuicompressor:$yuiVersion"
 
+    compile 'org.kordamp.gradle:livereload-gradle-plugin:0.2.1'
     testCompile "junit:junit:$junitVerstion"
 }
+
