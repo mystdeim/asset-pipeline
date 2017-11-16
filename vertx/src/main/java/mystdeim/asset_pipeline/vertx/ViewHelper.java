@@ -7,6 +7,9 @@ import mystdeim.asset_pipeline.vertx.impl.ViewHelperProduction;
 
 import java.io.FileNotFoundException;
 
+/**
+ * @author Roman Novikov
+ */
 public interface ViewHelper {
 
     static ViewHelper get(JsonObject conf) {
